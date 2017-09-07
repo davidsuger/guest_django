@@ -166,7 +166,7 @@ def user_sign(request):
         return JsonResponse({'status': 10022, 'message': 'event id null'})
     result = Event.objects.get(id=eid).status
     if not result:
-        return JsonResponse({'status': 10023, 'message': 'evnt status is not available'})
+        return JsonResponse({'status': 10023, 'message': 'event status is not available'})
 
     event_time = Event.objects.get(id=eid).start_time
     etime = str(event_time).split('+')[0]
@@ -185,7 +185,7 @@ def user_sign(request):
     result = Guest.objects.filter(event_id=eid, phone=phone)
     if not result:
         return JsonResponse({'status': 10026, 'message': 'user did not participate in the conference'})
-    result = Guest.objects.get(event_id=eid, phone=phone)
+    result = Guest.objects.get(event_id=eid, phone=phone).sign
     if result:
         return JsonResponse({'status': 10027, 'message': 'user has sign in'})
     else:
